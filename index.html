@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Pizza Booking</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+        }
+        .pizza-option {
+            margin-bottom: 1em;
+        }
+        .total {
+            font-weight: bold;
+            margin-top: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pizza Booking</h1>
+        <form id="pizza-form">
+            <div class="pizza-option">
+                <label for="pizza-type">Pizza Type:</label>
+                <select id="pizza-type">
+                    <option value="10">Margherita ($10)</option>
+                    <option value="12">Pepperoni ($12)</option>
+                    <option value="15">Veggie ($15)</option>
+                </select>
+            </div>
+            <div class="pizza-option">
+                <label for="toppings">Toppings ($2 each):</label><br>
+                <input type="checkbox" id="mushrooms" name="toppings" value="2"> Mushrooms<br>
+                <input type="checkbox" id="peppers" name="toppings" value="2"> Peppers<br>
+                <input type="checkbox" id="olives" name="toppings" value="2"> Olives<br>
+            </div>
+            <div class="pizza-option">
+                <label for="card-name">Card Name:</label>
+                <input type="text" id="card-name" required>
+            </div>
+            <div class="pizza-option">
+                <label for="card-number">Card Number:</label>
+                <input type="text" id="card-number" required>
+            </div>
+            <div class="pizza-option">
+                <label for="card-expiry">Card Expiry:</label>
+                <input type="text" id="card-expiry" required>
+            </div>
+            <div class="pizza-option">
+                <label for="card-ccv">Card CCV:</label>
+                <input type="text" id="card-ccv" required>
+            </div>
+            <button type="submit">Order Pizza</button>
+        </form>
+        <div id="total" class="total"></div>
+    </div>
+    <script>
+        document.getElementById('pizza-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var pizzaPrice = parseInt(document.getElementById('pizza-type').value);
+            var toppings = document.querySelectorAll('input[name="toppings"]:checked');
+            var toppingsTotal = Array.from(toppings).reduce(function(total, topping) {
+                return total + parseInt(topping.value);
+            }, 0);
+            var total = pizzaPrice + toppingsTotal;
+            document.getElementById('total').textContent = 'Order placed successfully! Total price: $' + total + '. Your pizza will be delivered in 30-45 minutes.';
+        });
+    </script>
+</body>
+</html>
